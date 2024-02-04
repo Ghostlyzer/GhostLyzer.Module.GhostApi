@@ -77,6 +77,35 @@ namespace GhostLyzer.Module.GhostApi.Services
             }
         }
 
+        internal async Task<T> ExecuteAsync<T>(RestRequest request) where T : new()
+        {
+            if (!string.IsNullOrEmpty(key))
+                AuthorizeRequest(request);
+
+            request.AddOrUpdateHeader("Accept-Version", $@"v{minimumVersion ?? "5.0"}");
+
+            try
+            {
+                var response = await Client.ExecuteAsync<T>(request);
+                TestResponseForErrors(response, request);
+                return response.Data;
+            }
+            catch (GhostApiException)
+            {
+                if (ExceptionLevel == ExceptionLevel.Ghost || ExceptionLevel == ExceptionLevel.All)
+                    throw;
+
+                return default;
+            }
+            catch
+            {
+                if (ExceptionLevel == ExceptionLevel.NonGhost || ExceptionLevel == ExceptionLevel.All)
+                    throw;
+
+                return default;
+            }
+        }
+
         /// <summary>
         /// Calls the Ghost API and returns the response data.
         /// If exceptions are suppressed, returns null on failure.
@@ -90,6 +119,38 @@ namespace GhostLyzer.Module.GhostApi.Services
             try
             {
                 var response = Client.Execute(request);
+                TestResponseForErrors(response, request);
+                return response.StatusCode == HttpStatusCode.NoContent;
+            }
+            catch (GhostApiException)
+            {
+                if (ExceptionLevel == ExceptionLevel.Ghost || ExceptionLevel == ExceptionLevel.All)
+                    throw;
+
+                return default;
+            }
+            catch
+            {
+                if (ExceptionLevel == ExceptionLevel.NonGhost || ExceptionLevel == ExceptionLevel.All)
+                    throw;
+
+                return default;
+            }
+        }
+
+        /// <summary>
+        /// Calls the Ghost API and returns the response data.
+        /// If exceptions are suppressed, returns null on failure.
+        /// </summary>
+        /// <returns>The API response.</returns>
+        /// <param name="request">A RestRequest representing the resource being requested.</param>
+        internal async Task<bool> ExecuteAsync(RestRequest request)
+        {
+            AuthorizeRequest(request);
+
+            try
+            {
+                var response = await Client.ExecuteAsync(request);
                 TestResponseForErrors(response, request);
                 return response.StatusCode == HttpStatusCode.NoContent;
             }
