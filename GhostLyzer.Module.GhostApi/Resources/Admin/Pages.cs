@@ -8,6 +8,35 @@ namespace GhostLyzer.Module.GhostApi.Services
 {
     public partial class GhostAdminAPI
     {
+        #region Create
+
+        /// <summary>
+        /// Create a page
+        /// </summary>
+        /// <param name="page">Page to create</param>
+        /// <returns>Returns the same page, along with whatever other data Ghost appended to it (like default values)</returns>
+        public Post CreatePage(Post page)
+        {
+            var request = PreparePageCreateRequest(page);
+            return Execute<PageRequest>(request).Pages[0];
+        }
+
+        /// <summary>
+        /// Create a page async
+        /// </summary>
+        /// <param name="page">Page to create</param>
+        /// <returns>Returns the same page, along with whatever other data Ghost appended to it (like default values)</returns>
+        public async Task<Post> CreatePageAsync(Post page)
+        {
+            var request = PreparePageCreateRequest(page);
+            var response = await ExecuteAsync<PageRequest>(request);
+            return response.Pages[0];
+        }
+
+        #endregion
+
+        #region Read
+
         /// <summary>
         /// Get a collection of published pages,
         /// including meta data about pagination so you can retrieve data in chunks.
@@ -74,28 +103,9 @@ namespace GhostLyzer.Module.GhostApi.Services
             return await base.GetPageBySlugAsync(slug, queryParams);
         }
 
-        /// <summary>
-        /// Create a page
-        /// </summary>
-        /// <param name="page">Page to create</param>
-        /// <returns>Returns the same page, along with whatever other data Ghost appended to it (like default values)</returns>
-        public Post CreatePage(Post page)
-        {
-            var request = PreparePageCreateRequest(page);
-            return Execute<PageRequest>(request).Pages[0];
-        }
+        #endregion
 
-        /// <summary>
-        /// Create a page async
-        /// </summary>
-        /// <param name="page">Page to create</param>
-        /// <returns>Returns the same page, along with whatever other data Ghost appended to it (like default values)</returns>
-        public async Task<Post> CreatePageAsync(Post page)
-        {
-            var request = PreparePageCreateRequest(page);
-            var response = await ExecuteAsync<PageRequest>(request);
-            return response.Pages[0];
-        }
+        #region Update
 
         /// <summary>
         /// Update a page
@@ -121,6 +131,10 @@ namespace GhostLyzer.Module.GhostApi.Services
             return response.Pages[0];
         }
 
+        #endregion
+
+        #region Delete
+
         /// <summary>
         /// Delete a page
         /// </summary>
@@ -144,6 +158,10 @@ namespace GhostLyzer.Module.GhostApi.Services
 
             return await ExecuteAsync(request);
         }
+
+        #endregion
+
+        #region Helpers
 
         /// <summary>
         /// Prepares a RestRequest for updating a page.
@@ -201,5 +219,7 @@ namespace GhostLyzer.Module.GhostApi.Services
 
             return request;
         }
+
+        #endregion
     }
 }

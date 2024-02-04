@@ -8,7 +8,6 @@ namespace GhostLyzer.Module.GhostApi.Services
 {
     public partial class GhostAPI
     {
-
         /// <summary>
         /// Gets all posts.
         /// </summary>
@@ -16,9 +15,19 @@ namespace GhostLyzer.Module.GhostApi.Services
         /// <returns>A response containing all posts.</returns>
         public PostResponse GetPosts(PostQueryParams queryParams = null)
         {
-            var request = CreateRequest("posts", Method.Get);
-            ApplyPostQueryParams(request, queryParams);
+            var request = PrepareGetPostsRequest(queryParams);
             return Execute<PostResponse>(request);
+        }
+
+        /// <summary>
+        /// Gets all posts asynchronously.
+        /// </summary>
+        /// <param name="queryParams">Optional query parameters.</param>
+        /// <returns>A response containing all posts.</returns>
+        public async Task<PostResponse> GetPostsAsync(PostQueryParams queryParams = null)
+        {
+            var request = PrepareGetPostsRequest(queryParams);
+            return await ExecuteAsync<PostResponse>(request);
         }
 
         /// <summary>
@@ -29,7 +38,21 @@ namespace GhostLyzer.Module.GhostApi.Services
         /// <returns>The post with the given ID.</returns>
         public Post GetPostById(string id, PostQueryParams queryParams = null)
         {
-            return GetSinglePost($"posts", id, queryParams);
+            var request = PrepareGetSinglePostRequest("posts", id, queryParams);
+            return Execute<PostResponse>(request)?.Posts?.Single();
+        }
+
+        /// <summary>
+        /// Gets a post by its ID asynchronously.
+        /// </summary>
+        /// <param name="id">The ID of the post.</param>
+        /// <param name="queryParams">Optional query parameters.</param>
+        /// <returns>The post with the given ID.</returns>
+        public async Task<Post> GetPostByIdAsync(string id, PostQueryParams queryParams = null)
+        {
+            var request = PrepareGetSinglePostRequest("posts", id, queryParams);
+            var response = await ExecuteAsync<PostResponse>(request);
+            return response?.Posts?.Single();
         }
 
         /// <summary>
@@ -40,20 +63,21 @@ namespace GhostLyzer.Module.GhostApi.Services
         /// <returns>The post with the given slug.</returns>
         public Post GetPostBySlug(string slug, PostQueryParams queryParams = null)
         {
-            return GetSinglePost($"posts/slug", slug, queryParams);
+            var request = PrepareGetSinglePostRequest("posts/slug", slug, queryParams);
+            return Execute<PostResponse>(request)?.Posts?.Single();
         }
 
         /// <summary>
-        /// Gets a single post for a given resource.
+        /// Gets a post by its slug asynchronously.
         /// </summary>
-        /// <param name="resource">The resource endpoint.</param>
+        /// <param name="slug">The slug of the post.</param>
         /// <param name="queryParams">Optional query parameters.</param>
-        /// <returns>A single post for the given resource.</returns>
-        private Post GetSinglePost(string resource, string identifier, PostQueryParams queryParams)
+        /// <returns>The post with the given slug.</returns>
+        public async Task<Post> GetPostBySlugAsync(string slug, PostQueryParams queryParams = null)
         {
-            var request = CreateRequest(resource, Method.Get, identifier);
-            ApplyPostQueryParams(request, queryParams);
-            return Execute<PostResponse>(request)?.Posts?.Single();
+            var request = PrepareGetSinglePostRequest("posts/slug", slug, queryParams);
+            var response = await ExecuteAsync<PostResponse>(request);
+            return response?.Posts?.Single();
         }
 
         /// <summary>
@@ -95,6 +119,32 @@ namespace GhostLyzer.Module.GhostApi.Services
                 if (queryParams.Order?.Any() == true)
                     request.AddQueryParameter("order", StringExtensions.GetOrderQueryString(queryParams.Order));
             }
+        }
+
+        /// <summary>
+        /// Prepares a RestRequest for getting all posts.
+        /// </summary>
+        /// <param name="queryParams">Optional query parameters.</param>
+        /// <returns>A RestRequest that can be used to get all posts.</returns>
+        private RestRequest PrepareGetPostsRequest(PostQueryParams queryParams = null)
+        {
+            var request = CreateRequest(Method.Get, "posts");
+            ApplyPostQueryParams(request, queryParams);
+            return request;
+        }
+
+        /// <summary>
+        /// Prepares a RestRequest for getting a single post.
+        /// </summary>
+        /// <param name="resource">The resource endpoint.</param>
+        /// <param name="identifier">The identifier of the post.</param>
+        /// <param name="queryParams">Optional query parameters.</param>
+        /// <returns>A RestRequest that can be used to get a single post.</returns>
+        private RestRequest PrepareGetSinglePostRequest(string resource, string identifier, PostQueryParams queryParams)
+        {
+            var request = CreateRequest(Method.Get, resource, identifier);
+            ApplyPostQueryParams(request, queryParams);
+            return request;
         }
     }
 }
