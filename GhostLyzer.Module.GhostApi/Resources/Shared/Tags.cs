@@ -30,6 +30,44 @@ namespace GhostLyzer.Module.GhostApi.Services
         }
 
         /// <summary>
+    /// Asynchronously retrieves all tags.
+    /// </summary>
+    /// <param name="queryParams">Query parameters.</param>
+    /// <returns>A TagResponse object containing the tags.</returns>
+    public async Task<TagResponse> GetTagsAsync(TagQueryParams queryParams = null)
+    {
+        var request = CreateRequest(Method.Get, "tags");
+        ApplyTagQueryParams(request, queryParams);
+        return await ExecuteAsync<TagResponse>(request);
+    }
+
+    /// <summary>
+    /// Asynchronously retrieves a tag by its ID.
+    /// </summary>
+    /// <param name="id">The ID of the tag.</param>
+    /// <param name="queryParams">Query parameters.</param>
+    /// <returns>A Tag object.</returns>
+    public async Task<Tag> GetTagByIdAsync(string id, TagQueryParams queryParams = null)
+    {
+        var request = CreateRequest(Method.Get, "tags", id);
+        ApplyTagQueryParams(request, queryParams);
+        return (await ExecuteAsync<TagResponse>(request))?.Tags?.Single();
+    }
+
+    /// <summary>
+    /// Asynchronously retrieves a tag by its slug.
+    /// </summary>
+    /// <param name="slug">The slug of the tag.</param>
+    /// <param name="queryParams">Query parameters.</param>
+    /// <returns>A Tag object.</returns>
+    public async Task<Tag> GetTagBySlugAsync(string slug, TagQueryParams queryParams = null)
+    {
+        var request = CreateRequest(Method.Get, "tags/slug", slug);
+        ApplyTagQueryParams(request, queryParams);
+        return (await ExecuteAsync<TagResponse>(request))?.Tags?.Single();
+    }
+
+        /// <summary>
         /// Applies any specified parameters to the tag request.
         /// </summary>
         /// <param name="request">A tag REST request.</param>
