@@ -110,6 +110,18 @@ namespace GhostLyzer.Module.GhostApi.Services
         }
 
         /// <summary>
+        /// Creates a new RestRequest object for use with the request to Ghost API.
+        /// </summary>
+        /// <param name="resource">The resource endpoint.</param>
+        /// <param name="method">The HTTP method.</param>
+        /// <param name="id">The optional id parameter.</param>
+        /// <returns>The created RestRequest.</returns>
+        internal RestRequest CreateRequest(string resource, Method method, string id = null)
+        {
+            return new RestRequest($"{resource}/{id}", method);
+        }
+
+        /// <summary>
         /// If response.Content has one or more error messages (returned from Ghost),
         /// or response.Exception contains an exception (some other exception thrown during request),
         /// create and throw a GhostSharpException with the details.
