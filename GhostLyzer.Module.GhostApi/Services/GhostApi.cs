@@ -116,9 +116,9 @@ namespace GhostLyzer.Module.GhostApi.Services
         /// <param name="method">The HTTP method.</param>
         /// <param name="id">The optional id parameter.</param>
         /// <returns>The created RestRequest.</returns>
-        internal RestRequest CreateRequest(string resource, Method method, string id = null)
+        internal RestRequest CreateRequest(Method method, string resource, string identifier = null)
         {
-            return new RestRequest($"{resource}/{id}", method);
+            return new RestRequest($"{resource}/{identifier}", method);
         }
 
         /// <summary>
