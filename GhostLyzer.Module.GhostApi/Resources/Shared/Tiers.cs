@@ -7,7 +7,7 @@ namespace GhostLyzer.Module.GhostApi.Services
     public partial class GhostAPI
     {
         /// <summary>
-        /// Get all tiers
+        /// Get all tiers.
         /// </summary>
         /// <returns>Returns all available tiers</returns>
         /// <seealso cref="https://ghost.org/docs/content-api/#usage"/>
@@ -16,6 +16,18 @@ namespace GhostLyzer.Module.GhostApi.Services
             var request = CreateRequest(Method.Get, "tiers");
             ApplyTierQueryParams(request, queryParams);
             return Execute<TierResponse>(request);
+        }
+
+        /// <summary>
+        /// Get all tiers asynchronously.
+        /// </summary>
+        /// <returns>Returns all available tiers</returns>
+        /// <seealso cref="https://ghost.org/docs/content-api/#usage"/>
+        public async  Task<TierResponse> GetTiersAsync(TierQueryParams queryParams = null)
+        {
+            var request = CreateRequest(Method.Get, "tiers");
+            ApplyTierQueryParams(request, queryParams);
+            return await ExecuteAsync<TierResponse>(request);
         }
 
         /// <summary>
