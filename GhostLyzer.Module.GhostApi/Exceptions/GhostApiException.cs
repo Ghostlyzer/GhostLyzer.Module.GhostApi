@@ -1,6 +1,6 @@
 ﻿using GhostLyzer.Module.GhostApi.Models;
 
-namespace GhostLyzer.Module.GhostApi.ExceptionHandling
+namespace GhostLyzer.Module.GhostApi.Exceptions
 {
     /// <summary>
     /// An exception representing a failure while using the API.
