@@ -5,7 +5,6 @@
     /// </summary>
     public class NewsletterQueryParams
     {
-
         /// <summary>
         /// Return all newsletters (no limit); if set to True, then Limit is ignored.
         /// </summary>

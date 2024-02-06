@@ -170,7 +170,6 @@ namespace GhostLyzer.Module.GhostApi.Services
         /// <returns>A RestRequest that can be used to update the page.</returns>
         private RestRequest PreparePageUpdateRequest(Post updatedPage)
         {
-
             // Per the docs, the UpdatedAt field is used to avoid collision detection
             // If an update fails, it might be that someone updated it more recently on site,
             // and you should re-get it and re-apply your changes to it... otherwise you
@@ -185,7 +184,6 @@ namespace GhostLyzer.Module.GhostApi.Services
             var request = CreateRequest(Method.Put, "pages", updatedPage.Id);
             request.AddJsonBody(serializedPage);
 
-
             // To use HTML as the source for your content instead of mobiledoc, use the source parameter.
             // Ref: https://ghost.org/docs/admin-api/#source-html
             if (!string.IsNullOrEmpty(updatedPage.Html))
@@ -193,7 +191,6 @@ namespace GhostLyzer.Module.GhostApi.Services
 
             return request;
         }
-
 
         /// <summary>
         /// Prepares a RestRequest for creating a page.

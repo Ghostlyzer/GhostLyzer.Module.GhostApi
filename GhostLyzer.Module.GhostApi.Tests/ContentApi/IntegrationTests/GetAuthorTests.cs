@@ -64,7 +64,6 @@ namespace GhostLyzer.Module.GhostApi.Tests.ContentApi.IntegrationTests
             Assert.That(author.Roles, Is.Null);
         }
 
-
         [Test]
         public void GetAuthorById_ReturnsPostCount_WhenIncludingCountPosts()
         {
