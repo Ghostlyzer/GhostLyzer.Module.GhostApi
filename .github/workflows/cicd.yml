@@ -18,9 +18,7 @@ env:
   DOTNET_NOLOGO: true
   NuGetDirectory: ${{ github.workspace}}/nuget
 
-defaults:
-  run:
-    shell: pwsh
+
 
 jobs:
   create_nuget:
