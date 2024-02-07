@@ -77,6 +77,8 @@ jobs:
       uses: actions/setup-dotnet@v4
     - name: Run tests
       run: dotnet test --configuration Release
+      env:
+       CONTENT_API_KEY: ${{ secrets.CONTENT_API_KEY }}
 
   deploy:
     # Publish only when creating a GitHub Release
