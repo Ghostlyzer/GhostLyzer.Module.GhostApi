@@ -4,17 +4,36 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Title>GhostLyzer.Module.GhostApi</Title>
+    <Authors>Christian Schou</Authors>
+    <Company>GhostLyzer</Company>
+    <Description>A Ghost CMS .NET SDK. It's a wrapper for the Ghost CMS API in .Net.</Description>
+    <Copyright>Copyright GhostLyzer 2024</Copyright>
+    <PackageProjectUrl>https://ghostlyzer.com</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/Ghostlyzer/GhostLyzer.Module.GhostApi</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>ghost;ghost cms;ghost api; ghost .net</PackageTags>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="JWT" Version="10.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
     <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="110.2.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Resources\Admin\" />
   </ItemGroup>
 
 </Project>
