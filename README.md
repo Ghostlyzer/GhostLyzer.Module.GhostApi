@@ -80,7 +80,7 @@ Console.WriteLine($"Navigation: {string.Join(", ", settings.Navigation.Select(x 
 Output:
 
 ```
-Welcome to Grant Winney: We learn by doing. We've all got something to contribute.
+Welcome to Tech with Christian: A Pragmatic Software & DevOps Engineer sharing his knowledge with the internet.
 
 Navigation: ReadMe, C#, .NET, Docker, Account
 ```
