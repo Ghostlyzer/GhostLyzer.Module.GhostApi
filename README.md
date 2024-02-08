@@ -82,7 +82,7 @@ Output:
 ```
 Welcome to Grant Winney: We learn by doing. We've all got something to contribute.
 
-Navigation: Home, APIs, Lambda, Rasp PI, About Me, CV
+Navigation: ReadMe, C#, .NET, Docker, Account
 ```
 
 ### Accessing the Admin API
