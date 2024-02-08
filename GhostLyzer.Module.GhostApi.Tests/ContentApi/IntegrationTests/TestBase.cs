@@ -10,9 +10,9 @@
         protected static string ValidPost1Id = "6542b5030a48f800019bb7ae";
         protected static string ValidPost1Slug = "what-are-git-hooks";
         protected static string ValidPost1Title = "What are Git Hooks?";
-        protected static string ValidPost1Url = "https://blog.christian-schou.dk/what-are-git-hooks/";
+        protected static string ValidPost1Url = "https://blog.christian-schou.dk/blog/what-are-git-hooks/";
         protected static string ValidPost1Author = "1";
-        protected static string ValidPost1PrimaryTag = "5e90d3e71318020e539719f1";
+        protected static string ValidPost1PrimaryTag = "6542b4e60a48f800019bb7ac";
         protected static string ValidPost1CodeInjectionHeader = "<!-- sample code injection header -->";
         protected static string ValidPost1CodeInjectionFooter = "<!-- sample code injection footer -->";
 
