@@ -85,40 +85,104 @@ namespace GhostLyzer.Module.GhostApi.Services
         /// </summary>
         /// <param name="request">A post REST request.</param>
         /// <param name="queryParams">Query parameters.</param>
+        //private void ApplyPostQueryParams(RestRequest request, PostQueryParams queryParams)
+        //{
+        //    if (queryParams != null)
+        //    {
+        //        if (queryParams.IncludeAuthors && queryParams.IncludeTags)
+        //            request.AddQueryParameter("include", "authors,tags");
+        //        else if (queryParams.IncludeAuthors)
+        //            request.AddQueryParameter("include", "authors");
+        //        else if (queryParams.IncludeTags)
+        //            request.AddQueryParameter("include", "tags");
+
+        //        if (queryParams.Fields != 0)
+        //            request.AddQueryParameter("fields", StringExtensions.GetQueryStringFromFlagsEnum<PostFields>(queryParams.Fields));
+
+        //        if (queryParams.Fields2 != 0)
+        //            request.AddQueryParameter("fields", StringExtensions.GetQueryStringFromFlagsEnum<PostFields2>(queryParams.Fields));
+
+        //        if (!string.IsNullOrWhiteSpace(queryParams.Filter))
+        //            request.AddQueryParameter("filter", queryParams.Filter);
+
+        //        if (queryParams.Formats != 0)
+        //            request.AddQueryParameter("formats", StringExtensions.GetQueryStringFromFlagsEnum<PostFormat>(queryParams.Formats));
+
+        //        if (queryParams.NoLimit)
+        //            request.AddQueryParameter("limit", "all");
+        //        else if (queryParams.Limit > 0)
+        //            request.AddQueryParameter("limit", queryParams.Limit);
+
+        //        if (queryParams.Page > 0)
+        //            request.AddQueryParameter("page", queryParams.Page);
+
+        //        if (queryParams.Order?.Any() == true)
+        //            request.AddQueryParameter("order", StringExtensions.GetOrderQueryString(queryParams.Order));
+        //    }
+        //}
+
         private void ApplyPostQueryParams(RestRequest request, PostQueryParams queryParams)
         {
-            if (queryParams != null)
-            {
-                if (queryParams.IncludeAuthors && queryParams.IncludeTags)
-                    request.AddQueryParameter("include", "authors,tags");
-                else if (queryParams.IncludeAuthors)
-                    request.AddQueryParameter("include", "authors");
-                else if (queryParams.IncludeTags)
-                    request.AddQueryParameter("include", "tags");
+            if (queryParams == null) return;
 
-                if (queryParams.Fields != 0)
-                    request.AddQueryParameter("fields", StringExtensions.GetQueryStringFromFlagsEnum<PostFields>(queryParams.Fields));
+            AddIncludeParameter(request, queryParams);
+            AddFieldsParameter(request, queryParams);
+            AddFilterParameter(request, queryParams);
+            AddFormatsParameter(request, queryParams);
+            AddLimitParameter(request, queryParams);
+            AddPageParameter(request, queryParams);
+            AddOrderParameter(request, queryParams);
+        }
 
-                if (queryParams.Fields2 != 0)
-                    request.AddQueryParameter("fields", StringExtensions.GetQueryStringFromFlagsEnum<PostFields2>(queryParams.Fields));
+        private void AddIncludeParameter(RestRequest request, PostQueryParams queryParams)
+        {
+            if (queryParams.IncludeAuthors && queryParams.IncludeTags)
+                request.AddQueryParameter("include", "authors,tags");
+            else if (queryParams.IncludeAuthors)
+                request.AddQueryParameter("include", "authors");
+            else if (queryParams.IncludeTags)
+                request.AddQueryParameter("include", "tags");
+        }
 
-                if (!string.IsNullOrWhiteSpace(queryParams.Filter))
-                    request.AddQueryParameter("filter", queryParams.Filter);
+        private void AddFieldsParameter(RestRequest request, PostQueryParams queryParams)
+        {
+            if (queryParams.Fields != 0)
+                request.AddQueryParameter("fields", StringExtensions.GetQueryStringFromFlagsEnum<PostFields>(queryParams.Fields));
 
-                if (queryParams.Formats != 0)
-                    request.AddQueryParameter("formats", StringExtensions.GetQueryStringFromFlagsEnum<PostFormat>(queryParams.Formats));
+            if (queryParams.Fields2 != 0)
+                request.AddQueryParameter("fields", StringExtensions.GetQueryStringFromFlagsEnum<PostFields2>(queryParams.Fields));
+        }
 
-                if (queryParams.NoLimit)
-                    request.AddQueryParameter("limit", "all");
-                else if (queryParams.Limit > 0)
-                    request.AddQueryParameter("limit", queryParams.Limit);
+        private void AddFilterParameter(RestRequest request, PostQueryParams queryParams)
+        {
+            if (!string.IsNullOrWhiteSpace(queryParams.Filter))
+                request.AddQueryParameter("filter", queryParams.Filter);
+        }
 
-                if (queryParams.Page > 0)
-                    request.AddQueryParameter("page", queryParams.Page);
+        private void AddFormatsParameter(RestRequest request, PostQueryParams queryParams)
+        {
+            if (queryParams.Formats != 0)
+                request.AddQueryParameter("formats", StringExtensions.GetQueryStringFromFlagsEnum<PostFormat>(queryParams.Formats));
+        }
 
-                if (queryParams.Order?.Any() == true)
-                    request.AddQueryParameter("order", StringExtensions.GetOrderQueryString(queryParams.Order));
-            }
+        private void AddLimitParameter(RestRequest request, PostQueryParams queryParams)
+        {
+            if (queryParams.NoLimit)
+                request.AddQueryParameter("limit", "all");
+            else if (queryParams.Limit > 0)
+                request.AddQueryParameter("limit", queryParams.Limit.ToString());
+        }
+
+        private void AddPageParameter(RestRequest request, PostQueryParams queryParams)
+        {
+            if (queryParams.Page > 0)
+                request.AddQueryParameter("page", queryParams.Page.ToString());
+        }
+
+        private void AddOrderParameter(RestRequest request, PostQueryParams queryParams)
+        {
+            if (queryParams.Order?.Any() == true)
+                request.AddQueryParameter("order", StringExtensions.GetOrderQueryString(queryParams.Order));
         }
 
         /// <summary>
