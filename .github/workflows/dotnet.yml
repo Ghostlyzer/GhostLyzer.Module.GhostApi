@@ -2,12 +2,13 @@ name: Build and Test
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - '*'
   pull_request:
     branches: [ "main" ]
 
 jobs:
-  build and test:
+  build_and_test:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v4
