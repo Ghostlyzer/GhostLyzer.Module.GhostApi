@@ -5,7 +5,12 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GhostLyzer.Module.GhostApi", "GhostLyzer.Module.GhostApi\GhostLyzer.Module.GhostApi.csproj", "{BEB98634-AD6C-4D92-B8AC-9B9A3ADCEF66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GhostLyzer.Module.GhostApi.Tests", "GhostLyzer.Module.GhostApi.Tests\GhostLyzer.Module.GhostApi.Tests.csproj", "{90A22A53-8545-4355-B23A-5DA792EF3C96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GhostLyzer.Module.GhostApi.Tests", "GhostLyzer.Module.GhostApi.Tests\GhostLyzer.Module.GhostApi.Tests.csproj", "{90A22A53-8545-4355-B23A-5DA792EF3C96}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{419E542F-4581-4EDE-8AB1-7174E1FA1BFD}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

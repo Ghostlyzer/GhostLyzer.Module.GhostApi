@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CS1658: Warning is overriding an error
+dotnet_diagnostic.CS1658.severity = silent
